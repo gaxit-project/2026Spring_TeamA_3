@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7104452003880460765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 111914, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 111914, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 118984, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150796, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150796, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 159796, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_Name
+      value: Nitrogen Cylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 159796, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 159796, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454524, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323212, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323212, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c6aee456a4c544a458a25908432cb659, type: 2}
+    - target: {fileID: 10878472, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 14.517075
+      objectReference: {fileID: 0}
+    - target: {fileID: 10878472, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10878472, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10878472, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11412226, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+      propertyPath: gasTankData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ebeeef468c7586459aa36729e6ed634,
+        type: 2}
+    m_RemovedComponents:
+    - {fileID: 11412226, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+    - {fileID: 8232806, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+    - {fileID: 8201270, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 159796, guid: 62e80a053a5f7c94f9f4c90bc293e432,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8598540998132998321}
+  m_SourcePrefab: {fileID: 100100000, guid: 62e80a053a5f7c94f9f4c90bc293e432, type: 3}
+--- !u!1 &7104452003880309225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159796, guid: 62e80a053a5f7c94f9f4c90bc293e432,
+    type: 3}
+  m_PrefabInstance: {fileID: 7104452003880460765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8598540998132998321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7104452003880309225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360d4921b53776a4f931375c43cd7fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gimmickData: {fileID: 11400000, guid: 85be0d5a29caa6a4e8ad0d28ca5e899f, type: 2}
+  explosionVFXPrefab: {fileID: 2828683194784416539, guid: e12ed6d33414db542b38a983c00133b5,
+    type: 3}
+  zombieAttachedVFXPrefab: {fileID: 8004865045011050766, guid: 804dcc8b2d6552b439ad6c91f03df04e,
+    type: 3}
+  destroyedPrefab: {fileID: 0}

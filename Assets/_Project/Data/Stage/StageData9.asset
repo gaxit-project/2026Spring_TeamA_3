@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd4c6b4f8dacd9488f4e0b0b17503b6, type: 3}
+  m_Name: StageData9
+  m_EditorClassIdentifier: 
+  stageName: "\u96C6\u5927\u6210"
+  sceneName: Stage9
+  timeLimit: 180
+  targetKillCount: 50
+  stageImage: {fileID: 21300000, guid: 8c4dd8b45741dab4ba9d2a9ac525cb8a, type: 3}
+  sRankTime: 90
+  aRankTime: 120
+  bRankTime: 150
+  zombieData: {fileID: 11400000, guid: 30bd8a6a679728747b97486cd1fa3b16, type: 2}
+  zombiePrefab: {fileID: 6123718269979603890, guid: 62602ebd7bfff7a4387d25dc2bf6b02e,
+    type: 3}
+  quickZombiePrefab: {fileID: 6123718269979603890, guid: 6d0332072e4f57842bc2c48904430c9b,
+    type: 3}
+  heavyZombiePrefab: {fileID: 6123718269979603890, guid: e3baf0cfc876e404da22a6c41a0ff1bb,
+    type: 3}
+  spawnInterval: 180
+  maxSimultaneousZombies: 50
+  initialSpawnCount: 3
+  spawnCountPerInterval: 2
+  flankingChance: 0
+  quickChance: 0
+  heavyChance: 0
+  quickSpeedMultiplier: 1.5

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Infima Games/Low Poly Shooter Pack - Free Sample/Scenes/S_Content_Overview.unity
+    guid: 63fdc04a097eb0b4ba4af78a98dac40d
+  - enabled: 1
+    path: Assets/_Project/Scenes/TitleScene.unity
+    guid: 332b9d514ca7019458d3e0dab5f36305
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage1.unity
+    guid: e8f46318068a37a4c918dba432d23c26
+  - enabled: 1
+    path: Assets/_Project/Scenes/ResultScene.unity
+    guid: 36ca5e25e0771954499f79a18e4d3b74
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage2.unity
+    guid: 901d03e9d18f1134fb84bd7992014cd1
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage3.unity
+    guid: f057d586a5044104c8a4219adde584e9
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage4.unity
+    guid: 8b0d00d170b0d3346bc26d692466d269
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage5.unity
+    guid: c9c263006698d3e41943fda6c0c54465
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage6.unity
+    guid: 14c6da4e94e917b48930a40c5268bbb4
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage7.unity
+    guid: 494c6ed02fe80ae48a4b123cf8a916c4
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage8.unity
+    guid: 9038008fcdb81e84eb0c26377ef2b7a6
+  - enabled: 1
+    path: Assets/_Project/Scenes/Stage9.unity
+    guid: 2f619fc912993cb4489c358c4a9007a3
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 9eb07e2d669e9c94e9d7d3c782a916f7,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0
