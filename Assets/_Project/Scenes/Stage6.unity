@@ -15617,7 +15617,7 @@ PrefabInstance:
     - target: {fileID: 278653326595492855, guid: d28ddd2d8cdea7749b3749ad4ab0a598,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5000428705042587596, guid: d28ddd2d8cdea7749b3749ad4ab0a598,
         type: 3}
@@ -41438,7 +41438,7 @@ MonoBehaviour:
     type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6

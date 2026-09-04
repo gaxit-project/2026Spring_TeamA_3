@@ -1,17 +1,28 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 
 namespace DeadLab
 {
     /// <summary>
-    /// ゲーム起動時にフレームレート固定（60FPS）およびディスプレイ解像度の最適化を行うクラス
+    /// ゲーム起動時にフレームレート固定（60FPS）、解像度最適化、マウスカーソル制御、
+    /// およびシーンロードイベント駆動によるUIフォーカス保護を管理する初期化クラス
     /// </summary>
-    public static class FrameRateInitializer
+    public static class GameEnvironmentInitializer
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void InitializeFrameRate()
+        private static void InitializeEnvironment()
         {
             // 60FPS固定
             Application.targetFrameRate = 60;
+
+            // マウスカーソルを常に非表示・ロック（コントローラー操作を基本とし、UI誤クリックによるフォーカス外れを防止）
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            // イベント駆動: シーンロード時に1度だけEventSystemの背景クリック解除を無効化
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
 #if !UNITY_EDITOR
             // ディスプレイのネイティブ解像度を取得してアスペクト比を判別
@@ -47,6 +58,20 @@ namespace DeadLab
                 Screen.SetResolution(targetWidth, targetHeight, FullScreenMode.FullScreenWindow);
             }
 #endif
+        }
+
+        private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // シーン内のEventSystemを取得し、マウス等のクリック・ポインター入力をUIモジュールから完全切断
+            EventSystem eventSystem = Object.FindFirstObjectByType<EventSystem>();
+            if (eventSystem != null && eventSystem.currentInputModule is InputSystemUIInputModule inputModule)
+            {
+                inputModule.deselectOnBackgroundClick = false;
+                inputModule.leftClick = null;
+                inputModule.rightClick = null;
+                inputModule.middleClick = null;
+                inputModule.point = null;
+            }
         }
     }
 }

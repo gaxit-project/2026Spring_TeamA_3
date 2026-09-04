@@ -84,9 +84,6 @@ namespace DeadLab
 
             EnsureEventSystem();
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
             if (view != null) view.Show();
         }
 
@@ -94,9 +91,6 @@ namespace DeadLab
         {
             isPaused = false;
             Time.timeScale = 1f;
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
 
             if (view != null) view.Hide();
         }
@@ -156,9 +150,6 @@ namespace DeadLab
         private void GoToTitle()
         {
             Time.timeScale = 1f;
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
 
             ShutterTransitionUI shutter = ShutterTransitionUI.EnsureExists();
             shutter.CloseShutter(() =>

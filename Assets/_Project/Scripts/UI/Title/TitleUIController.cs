@@ -39,10 +39,6 @@ namespace DeadLab
 
         private void Awake()
         {
-            // マウスカーソルの可視化およびロック解除
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
             // タイトル画面ボタンアクションの登録
             if (startBtn != null) startBtn.onClick.AddListener(() => ShowPanel(stageSelectPanel));
             if (settingsBtn != null) settingsBtn.onClick.AddListener(() => ShowPanel(settingsPanel));

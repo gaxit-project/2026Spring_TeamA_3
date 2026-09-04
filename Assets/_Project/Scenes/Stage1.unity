@@ -2811,7 +2811,7 @@ PrefabInstance:
     - target: {fileID: 916095938892669238, guid: 19eadcf8fbed56b4da77ca94c1b4145f,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 65335
+      value: 64823
       objectReference: {fileID: 0}
     - target: {fileID: 1333924685648317083, guid: 19eadcf8fbed56b4da77ca94c1b4145f,
         type: 3}
@@ -4871,7 +4871,7 @@ MonoBehaviour:
     type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6

@@ -57,10 +57,6 @@ namespace DeadLab
 
         private void Start()
         {
-            // マウスカーソル可視化およびロック解除
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
             // BGM用AudioSourceの初期化
             InitAudioSource();
 
