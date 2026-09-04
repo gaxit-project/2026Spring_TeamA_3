@@ -55,13 +55,16 @@ namespace DeadLab
         private bool isInputBlocked = false;
 
         /// <summary>
-        /// UIイベントシステムの有効化切替
+        /// UIイベントシステムのナビゲーション有効化切替
         /// </summary>
         private void SetInputEnabled(bool enable)
         {
             if (EventSystem.current != null)
             {
-                EventSystem.current.enabled = enable;
+                // EventSystem 自体を無効化するとマウス入力やシーンロード時の状態が壊れるため、
+                // コントローラー・キーボードのナビゲーション（選択移動・Submit）のみを制御する
+                EventSystem.current.sendNavigationEvents = enable;
+                EventSystem.current.enabled = true;
             }
         }
 
@@ -77,6 +80,22 @@ namespace DeadLab
             DontDestroyOnLoad(gameObject);
 
             InitializeUI();
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDestroy()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+        {
+            // シーン切り替え時は EventSystem を確実に復旧させる
+            if (EventSystem.current != null)
+            {
+                EventSystem.current.enabled = true;
+                EventSystem.current.sendNavigationEvents = true;
+            }
         }
 
         /// <summary>
@@ -295,21 +314,29 @@ namespace DeadLab
                 stageNameText.text = "";
             }
 
-            isInputBlocked = false;
-            SetInputEnabled(true);
-            onStartOpening?.Invoke();
             PlayShutterSound();
 
             float canvasHeight = GetCanvasHeight();
             Vector2 startPos = Vector2.zero;
             Vector2 endPos = new Vector2(0, canvasHeight * 1.5f);
             float elapsedOpen = 0f;
+            bool unblocked = false;
 
             while (elapsedOpen < shutterOpenDuration)
             {
                 elapsedOpen += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsedOpen / shutterOpenDuration);
-                t = t * t * t;
+                float ratio = Mathf.Clamp01(elapsedOpen / shutterOpenDuration);
+
+                // 画面が約70%見えた段階で先行して操作解禁（操作のキビキビ感・手触り向上）
+                if (!unblocked && ratio >= 0.7f)
+                {
+                    unblocked = true;
+                    isInputBlocked = false;
+                    SetInputEnabled(true);
+                    onStartOpening?.Invoke();
+                }
+
+                float t = ratio * ratio * ratio;
                 shutterPanel.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
                 yield return null;
             }
@@ -317,14 +344,20 @@ namespace DeadLab
             shutterPanel.anchoredPosition = endPos;
             shutterPanel.gameObject.SetActive(false);
             isTransitioning = false;
+            if (!unblocked)
+            {
+                isInputBlocked = false;
+                SetInputEnabled(true);
+                onStartOpening?.Invoke();
+            }
             onOpened?.Invoke();
         }
 
         private IEnumerator CoOpenShutter(Action onOpened, float delay = 0f)
         {
             isTransitioning = true;
-            isInputBlocked = false;
-            SetInputEnabled(true);
+            isInputBlocked = true;
+            SetInputEnabled(false);
 
             if (shutterPanel != null)
             {
@@ -348,12 +381,22 @@ namespace DeadLab
             Vector2 startPos = Vector2.zero;
             Vector2 endPos = new Vector2(0, canvasHeight * 1.5f);
             float elapsedOpen = 0f;
+            bool unblocked = false;
 
             while (elapsedOpen < shutterOpenDuration)
             {
                 elapsedOpen += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsedOpen / shutterOpenDuration);
-                t = t * t * t;
+                float ratio = Mathf.Clamp01(elapsedOpen / shutterOpenDuration);
+
+                // 画面が約70%見えた段階で先行して操作解禁
+                if (!unblocked && ratio >= 0.7f)
+                {
+                    unblocked = true;
+                    isInputBlocked = false;
+                    SetInputEnabled(true);
+                }
+
+                float t = ratio * ratio * ratio;
                 shutterPanel.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
                 yield return null;
             }
@@ -361,6 +404,11 @@ namespace DeadLab
             shutterPanel.anchoredPosition = endPos;
             shutterPanel.gameObject.SetActive(false);
             isTransitioning = false;
+            if (!unblocked)
+            {
+                isInputBlocked = false;
+                SetInputEnabled(true);
+            }
             onOpened?.Invoke();
         }
 

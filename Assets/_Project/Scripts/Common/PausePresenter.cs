@@ -54,6 +54,13 @@ namespace DeadLab
         {
             if (!isPaused)
             {
+                // ゲームプレイ中以外（クリア演出中・ゲームオーバー演出中など）はポーズ禁止
+                GameManager gm = GameManager.Instance ?? FindFirstObjectByType<GameManager>();
+                if (gm != null && gm.CurrentState != GameManager.GameState.Playing)
+                {
+                    return;
+                }
+
                 if (ShutterTransitionUI.Instance != null && ShutterTransitionUI.Instance.IsInputBlocked)
                 {
                     return;

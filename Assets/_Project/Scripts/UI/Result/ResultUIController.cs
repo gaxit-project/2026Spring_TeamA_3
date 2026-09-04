@@ -89,23 +89,33 @@ namespace DeadLab
             }
 
             // 初期選択ボタンのフォーカス設定
-            if (firstSelectedButton != null && UnityEngine.EventSystems.EventSystem.current != null)
-            {
-                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
-            }
+            FocusFirstButton();
 
-            // シャッター状態に応じたBGM再生
+            // シャッター状態に応じたBGM再生およびフォーカス再同期
             if (ShutterTransitionUI.Instance != null && ShutterTransitionUI.Instance.IsClosed)
             {
                 ShutterTransitionUI.Instance.OpenShutter(() =>
                 {
                     PlayResultBgm();
+                    FocusFirstButton();
                 }, delay: 0.25f);
             }
             else
             {
                 // シャッターが開いている・存在しない場合はそのままBGM再生
                 PlayResultBgm();
+            }
+        }
+
+        /// <summary>
+        /// 初期選択ボタンへのフォーカス設定
+        /// </summary>
+        private void FocusFirstButton()
+        {
+            if (firstSelectedButton != null && UnityEngine.EventSystems.EventSystem.current != null)
+            {
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
             }
         }
 

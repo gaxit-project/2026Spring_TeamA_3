@@ -27,6 +27,26 @@ namespace DeadLab
             this.view.OnReloadRequested += OnReloadRequested;
         }
 
+        private bool CanAcceptInput()
+        {
+            if (gameManager == null) return true;
+
+            // 通常プレイ中は入力可能
+            if (gameManager.CurrentState == GameManager.GameState.Playing) return true;
+
+            // ゲームクリア後も、シャッターが降り始める（入力ブロック開始）までは操作可能
+            if (gameManager.CurrentState == GameManager.GameState.GameClear)
+            {
+                if (ShutterTransitionUI.Instance != null && (ShutterTransitionUI.Instance.IsInputBlocked || ShutterTransitionUI.Instance.IsTransitioning))
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// フレーム毎の入力同期および状態更新（Bootstrapper等から実行）
         /// </summary>
@@ -34,8 +54,8 @@ namespace DeadLab
         {
             if (character == null) return;
 
-            // ゲームプレイ中以外の入力無効化
-            if (gameManager != null && gameManager.CurrentState != GameManager.GameState.Playing)
+            // 入力受付可否の判定
+            if (!CanAcceptInput())
             {
                 model.MoveDirection = Vector2.zero;
                 model.LookDirection = Vector2.zero;
@@ -73,8 +93,8 @@ namespace DeadLab
         /// </summary>
         private void OnReloadRequested()
         {
-            // ゲームプレイ中以外のリロード要求無視
-            if (gameManager != null && gameManager.CurrentState != GameManager.GameState.Playing) return;
+            // 入力受付不可時はリロード要求無視
+            if (!CanAcceptInput()) return;
 
             if (character != null)
             {
