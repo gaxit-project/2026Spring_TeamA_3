@@ -10,12 +10,11 @@ namespace DeadLab
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void InitializeFrameRate()
         {
-            // 1. VSync無効化 & 60FPS固定
-            QualitySettings.vSyncCount = 0;
+            // 60FPS固定
             Application.targetFrameRate = 60;
 
 #if !UNITY_EDITOR
-            // 2. ディスプレイのネイティブ解像度を取得してアスペクト比を判別
+            // ディスプレイのネイティブ解像度を取得してアスペクト比を判別
             Resolution currentRes = Screen.currentResolution;
             float aspectRatio = (float)currentRes.width / currentRes.height;
 
