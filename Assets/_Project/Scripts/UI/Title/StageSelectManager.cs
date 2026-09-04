@@ -294,6 +294,12 @@ namespace DeadLab
         {
             if (EventSystem.current == null) return;
 
+            // シャッター開閉・遷移中は入力を一切受け付けない
+            if (ShutterTransitionUI.Instance != null && (ShutterTransitionUI.Instance.IsTransitioning || ShutterTransitionUI.Instance.IsInputBlocked))
+            {
+                return;
+            }
+
             // 詳細表示画面のダイレクト入力監視
             if (detailPanel != null && detailPanel.activeSelf)
             {

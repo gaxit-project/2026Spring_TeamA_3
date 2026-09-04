@@ -42,7 +42,11 @@ namespace DeadLab
             // 初期表示設定
             if (timerText != null) timerText.text = "残り時間: --:--";
             if (killCountText != null) killCountText.text = "目標: 0 / 0";
-            if (damageOverlay != null) damageOverlay.color = new Color(1f, 0f, 0f, 0f);
+            if (damageOverlay != null)
+            {
+                damageOverlay.color = new Color(1f, 0f, 0f, 0f);
+                damageOverlay.gameObject.SetActive(false);
+            }
             if (gameOverPanel != null) gameOverPanel.gameObject.SetActive(false);
             if (gameOverText != null) gameOverText.gameObject.SetActive(false);
             if (gameClearPanel != null) gameClearPanel.gameObject.SetActive(false);
@@ -132,6 +136,8 @@ namespace DeadLab
         /// </summary>
         private void TriggerDamageFlash()
         {
+            if (damageOverlay == null) return;
+
             if (damageFlashCoroutine != null)
             {
                 StopCoroutine(damageFlashCoroutine);
@@ -145,6 +151,8 @@ namespace DeadLab
         private System.Collections.IEnumerator DamageFlashSequence()
         {
             if (damageOverlay == null) yield break;
+
+            damageOverlay.gameObject.SetActive(true);
 
             float elapsed = 0f;
             float duration = 0.5f;
@@ -161,6 +169,8 @@ namespace DeadLab
             }
 
             damageOverlay.color = new Color(0.8f, 0f, 0f, 0f);
+            damageOverlay.gameObject.SetActive(false);
+            damageFlashCoroutine = null;
         }
 
         /// <summary>
