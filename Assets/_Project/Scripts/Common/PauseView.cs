@@ -30,6 +30,10 @@ namespace DeadLab
         [SerializeField] private Slider seSettingSlider;
         [SerializeField] private TextMeshProUGUI seVolumeValueText;
 
+        [Header("Sensitivity Settings")]
+        [SerializeField] private Slider sensitivitySlider;
+        [SerializeField] private TextMeshProUGUI sensitivityValueText;
+
         public event Action OnResumeClicked;
         public event Action OnRetryClicked;
         public event Action OnSettingsClicked;
@@ -73,6 +77,16 @@ namespace DeadLab
                 seSettingSlider.onValueChanged.AddListener(OnSeVolumeChanged);
                 UpdateSeVolumeText(savedSe);
                 SetAudioMixerVolume("SEVolume", savedSe);
+            }
+
+            if (sensitivitySlider != null)
+            {
+                sensitivitySlider.minValue = 0.5f;
+                sensitivitySlider.maxValue = 5.0f;
+                float savedSens = PlayerPrefs.GetFloat("Sensitivity", 1.0f);
+                sensitivitySlider.value = savedSens;
+                sensitivitySlider.onValueChanged.AddListener(OnSensitivityChanged);
+                UpdateSensitivityText(savedSens);
             }
 
             Hide();
@@ -174,6 +188,30 @@ namespace DeadLab
             {
                 float decibel = Mathf.Log10(Mathf.Max(sliderValue, 0.0001f)) * 20f;
                 audioMixer.SetFloat(exposedParamName, decibel);
+            }
+        }
+
+        private void OnSensitivityChanged(float val)
+        {
+            float snapped = Mathf.Round(val * 2f) / 2f;
+            snapped = Mathf.Clamp(snapped, 0.5f, 5.0f);
+
+            if (sensitivitySlider != null && Mathf.Abs(sensitivitySlider.value - snapped) > 0.001f)
+            {
+                sensitivitySlider.value = snapped;
+                return;
+            }
+
+            PlayerPrefs.SetFloat("Sensitivity", snapped);
+            PlayerPrefs.Save();
+            UpdateSensitivityText(snapped);
+        }
+
+        private void UpdateSensitivityText(float val)
+        {
+            if (sensitivityValueText != null)
+            {
+                sensitivityValueText.text = $"{val:F1}";
             }
         }
 
