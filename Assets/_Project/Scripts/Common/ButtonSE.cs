@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DeadLab
 {
@@ -7,12 +8,42 @@ namespace DeadLab
     /// </summary>
     public class ButtonSE : MonoBehaviour
     {
-        private AudioSource audioSource;
         [SerializeField] public AudioClip seClip;
+
+        private AudioSource localAudioSource;
+        private static AudioSource sharedAudioSource;
 
         private void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
+            localAudioSource = GetComponent<AudioSource>();
+        }
+
+        private void Start()
+        {
+            // Buttonコンポーネントがある場合、クリックイベントに自動登録
+            var button = GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.AddListener(PlaySE);
+            }
+        }
+
+        private static AudioSource GetSharedAudioSource()
+        {
+            if (sharedAudioSource == null)
+            {
+                var go = new GameObject("[ButtonSE_SharedAudioSource]");
+                DontDestroyOnLoad(go);
+                sharedAudioSource = go.AddComponent<AudioSource>();
+                sharedAudioSource.playOnAwake = false;
+            }
+
+            if (sharedAudioSource.outputAudioMixerGroup == null && SettingsManager.SeMixerGroupInstance != null)
+            {
+                sharedAudioSource.outputAudioMixerGroup = SettingsManager.SeMixerGroupInstance;
+            }
+
+            return sharedAudioSource;
         }
 
         /// <summary>
@@ -20,10 +51,26 @@ namespace DeadLab
         /// </summary>
         public void PlaySE()
         {
-            if (seClip != null)
+            if (seClip == null) return;
+
+            // 自身または親が非アクティブ化された場合は、常駐の sharedAudioSource で再生
+            AudioSource targetSource = null;
+            if (localAudioSource != null && localAudioSource.isActiveAndEnabled)
             {
-                Vector3 cameraPos = Camera.main != null ? Camera.main.transform.position : Vector3.zero;
-                AudioSource.PlayClipAtPoint(seClip, cameraPos);
+                if (localAudioSource.outputAudioMixerGroup == null && SettingsManager.SeMixerGroupInstance != null)
+                {
+                    localAudioSource.outputAudioMixerGroup = SettingsManager.SeMixerGroupInstance;
+                }
+                targetSource = localAudioSource;
+            }
+            else
+            {
+                targetSource = GetSharedAudioSource();
+            }
+
+            if (targetSource != null)
+            {
+                targetSource.PlayOneShot(seClip);
             }
         }
     }

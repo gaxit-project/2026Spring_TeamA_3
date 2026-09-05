@@ -29,6 +29,9 @@ namespace DeadLab
 
         private bool CanAcceptInput()
         {
+            // ポーズ中は入力を受け付けない
+            if (PausePresenter.IsPaused) return false;
+
             if (gameManager == null) return true;
 
             // 通常プレイ中は入力可能

@@ -330,6 +330,11 @@ namespace DeadLab
                 if (isSubmit)
                 {
                     Debug.Log("[StageSelectManager] 詳細画面で決定操作（Aボタン/Enter）を検知。ゲームを開始します。");
+                    if (backButton != null)
+                    {
+                        var bse = backButton.GetComponent<ButtonSE>();
+                        if (bse != null) bse.PlaySE();
+                    }
                     StartPlayGame();
                     return;
                 }
@@ -337,6 +342,11 @@ namespace DeadLab
                 if (isCancel)
                 {
                     Debug.Log("[StageSelectManager] 詳細画面でキャンセル操作（Bボタン/Esc）を検知。詳細画面を閉じます。");
+                    if (backButton != null)
+                    {
+                        var bse = backButton.GetComponent<ButtonSE>();
+                        if (bse != null) bse.PlaySE();
+                    }
                     CloseDetailPanel();
                     return;
                 }

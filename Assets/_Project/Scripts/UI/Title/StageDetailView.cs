@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -104,12 +104,16 @@ namespace DeadLab
             {
                 startButton.interactable = isUnlocked;
                 startButton.onClick.RemoveAllListeners();
+                var bse = startButton.GetComponent<ButtonSE>();
+                if (bse != null) startButton.onClick.AddListener(bse.PlaySE);
                 if (isUnlocked && onStartClick != null) startButton.onClick.AddListener(() => onStartClick());
             }
 
             if (backButton != null)
             {
                 backButton.onClick.RemoveAllListeners();
+                var bse = backButton.GetComponent<ButtonSE>();
+                if (bse != null) backButton.onClick.AddListener(bse.PlaySE);
                 if (onBackClick != null) backButton.onClick.AddListener(() => onBackClick());
             }
         }

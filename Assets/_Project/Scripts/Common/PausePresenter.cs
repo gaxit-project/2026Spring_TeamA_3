@@ -13,7 +13,8 @@ namespace DeadLab
         [SerializeField] private PauseView view;
         [SerializeField] private InputActionReference pauseAction;
 
-        private bool isPaused = false;
+        private static bool isPaused = false;
+        public static bool IsPaused => isPaused;
 
         private void Start()
         {
@@ -156,6 +157,11 @@ namespace DeadLab
             {
                 SceneManager.LoadScene("TitleScene");
             });
+        }
+
+        private void OnDestroy()
+        {
+            isPaused = false;
         }
     }
 }
