@@ -48,6 +48,11 @@ namespace DeadLab
                 cardButton.onClick.RemoveAllListeners();
                 if (isUnlocked)
                 {
+                    var bse = cardButton.GetComponent<ButtonSE>();
+                    if (bse != null)
+                    {
+                        cardButton.onClick.AddListener(bse.PlaySE);
+                    }
                     cardButton.onClick.AddListener(() => onClickAction?.Invoke(data));
                 }
             }
