@@ -36,6 +36,14 @@ namespace DeadLab
 
         public event Action OnBackRequested;
 
+        private void Awake()
+        {
+            if (seMixerGroup != null)
+            {
+                SeMixerGroupInstance = seMixerGroup;
+            }
+        }
+
         private void Start()
         {
             if (seMixerGroup != null)
@@ -78,7 +86,7 @@ namespace DeadLab
             // 感度スライダーの初期化
             if (sensitivitySlider != null)
             {
-                sensitivitySlider.minValue = 0.1f;
+                sensitivitySlider.minValue = 0.5f;
                 sensitivitySlider.maxValue = 5.0f;
                 float savedSens = PlayerPrefs.GetFloat("Sensitivity", 1.0f);
                 sensitivitySlider.value = savedSens;
@@ -133,9 +141,18 @@ namespace DeadLab
 
         private void OnSensitivityChanged(float val)
         {
-            PlayerPrefs.SetFloat("Sensitivity", val);
+            float snapped = Mathf.Round(val * 2f) / 2f;
+            snapped = Mathf.Clamp(snapped, 0.5f, 5.0f);
+
+            if (sensitivitySlider != null && Mathf.Abs(sensitivitySlider.value - snapped) > 0.001f)
+            {
+                sensitivitySlider.value = snapped;
+                return;
+            }
+
+            PlayerPrefs.SetFloat("Sensitivity", snapped);
             PlayerPrefs.Save();
-            UpdateSensitivityText(val);
+            UpdateSensitivityText(snapped);
         }
 
         private void UpdateSensitivityText(float val)
