@@ -244,6 +244,7 @@ namespace DeadLab
                     audioSource.outputAudioMixerGroup = DeadLab.SettingsManager.SeMixerGroupInstance;
                 }
             }
+            audioSource.playOnAwake = false;
 
             originalScale = transform.localScale;
 
@@ -292,6 +293,8 @@ namespace DeadLab
         private void Update()
         {
             if (currentState == ZombieState.Dead) return;
+
+            if (Time.timeScale <= 0f) return;
 
             if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
             {
@@ -377,8 +380,8 @@ namespace DeadLab
                     animator.SetFloat(HashSpeed, 0);
                     if (distanceToPlayer <= detectRange)
                     {
-                        PlayZombieSound(zombieVoice);
                         currentState = ZombieState.Chase;
+                        PlayZombieSound(zombieVoice);
                     }
                     break;
 
@@ -465,8 +468,9 @@ namespace DeadLab
         /// <param name="clip">再生するAudioClip</param>
         private void PlayZombieSound(AudioClip clip)
         {
-            audioSource.clip = clip;
-            audioSource.Play();
+            if (Time.timeScale <= 0f || clip == null) return;
+
+            audioSource.PlayOneShot(clip);
         }
 
         /// <summary>
