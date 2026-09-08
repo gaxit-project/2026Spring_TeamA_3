@@ -50,7 +50,12 @@ namespace DeadLab
 
             // 各Managerからの戻るイベントの購読
             if (stageManager != null) stageManager.OnBackRequested += () => ShowPanel(titlePanel);
-            if (settingsManager != null) settingsManager.OnBackRequested += () => ShowPanel(titlePanel);
+            if (settingsManager != null)
+            {
+                // 設定パネルが非アクティブでもSE用MixerGroupを即座に初期化
+                settingsManager.InitializeSettings();
+                settingsManager.OnBackRequested += () => ShowPanel(titlePanel);
+            }
         }
 
         private void Start()
