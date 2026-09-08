@@ -32,5 +32,10 @@ namespace DeadLab
         /// リロード要求イベント
         /// </summary>
         event Action OnReloadRequested;
+
+        /// <summary>
+        /// ジャンプ要求イベント
+        /// </summary>
+        event Action OnJumpRequested;
     }
 }

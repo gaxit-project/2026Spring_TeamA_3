@@ -16,6 +16,7 @@ namespace DeadLab
         private InputAction fireAction;
         private InputAction aimAction;
         private InputAction reloadAction;
+        private InputAction jumpAction;
 
         public Vector2 MoveInput { get; private set; }
         public Vector2 LookInput { get; private set; }
@@ -23,6 +24,7 @@ namespace DeadLab
         public bool IsAiming { get; private set; }
 
         public event Action OnReloadRequested;
+        public event Action OnJumpRequested;
 
         private void Awake()
         {
@@ -34,6 +36,7 @@ namespace DeadLab
             fireAction = playerInput.actions.FindAction("Fire", false);
             aimAction = playerInput.actions.FindAction("Aiming", false);
             reloadAction = playerInput.actions.FindAction("Reload", false);
+            jumpAction = playerInput.actions.FindAction("Jump", false);
         }
 
         private void OnEnable()
@@ -41,6 +44,11 @@ namespace DeadLab
             if (reloadAction != null)
             {
                 reloadAction.started += OnReloadPerformed;
+            }
+
+            if (jumpAction != null)
+            {
+                jumpAction.started += OnJumpPerformed;
             }
         }
 
@@ -50,6 +58,11 @@ namespace DeadLab
             {
                 reloadAction.started -= OnReloadPerformed;
             }
+
+            if (jumpAction != null)
+            {
+                jumpAction.started -= OnJumpPerformed;
+            }
         }
 
         /// <summary>
@@ -58,6 +71,14 @@ namespace DeadLab
         private void OnReloadPerformed(InputAction.CallbackContext context)
         {
             OnReloadRequested?.Invoke();
+        }
+
+        /// <summary>
+        /// ジャンプ入力検出時のコールバック関数
+        /// </summary>
+        private void OnJumpPerformed(InputAction.CallbackContext context)
+        {
+            OnJumpRequested?.Invoke();
         }
 
         private void Update()

@@ -44,6 +44,11 @@ namespace DeadLab
         public bool IsSprintModeEnabled => playerData != null ? playerData.isSprintModeEnabled : true;
 
         /// <summary>
+        /// ジャンプ初速度（高さ）の取得
+        /// </summary>
+        public float JumpForce => playerData != null ? playerData.jumpForce : 5.0f;
+
+        /// <summary>
         /// 視点移動（カメラ旋回）の感度倍率
         /// </summary>
         public float LookSensitivity { get; set; }

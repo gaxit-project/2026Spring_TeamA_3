@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+// Copyright 2021, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 
@@ -35,6 +35,15 @@ namespace InfimaGames.LowPolyShooterPack
         /// Late Update.
         /// </summary>
         protected virtual void LateUpdate(){}
+
+        #endregion
+
+        #region METHODS
+
+        /// <summary>
+        /// Jump.
+        /// </summary>
+        public virtual void Jump(float? customJumpForce = null){}
 
         #endregion
     }

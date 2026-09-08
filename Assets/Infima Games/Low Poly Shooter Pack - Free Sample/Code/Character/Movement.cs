@@ -28,6 +28,9 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("How fast the player moves while running."), SerializeField]
         private float speedRunning = 100.0f;
 
+        [Tooltip("Jump velocity."), SerializeField]
+        private float jumpForce = 5.0f;
+
         #endregion
 
         #region PROPERTIES
@@ -62,6 +65,11 @@ namespace InfimaGames.LowPolyShooterPack
         /// True if the character is currently grounded.
         /// </summary>
         private bool grounded;
+
+        /// <summary>
+        /// True if jump was requested.
+        /// </summary>
+        private bool jumpRequested;
 
         /// <summary>
         /// Player Character.
@@ -125,8 +133,8 @@ namespace InfimaGames.LowPolyShooterPack
             Physics.SphereCastNonAlloc(bounds.center, radius, Vector3.down,
                 groundHits, extents.y - radius * 0.5f, ~0, QueryTriggerInteraction.Ignore);
             
-            //We can ignore the rest if we don't have any proper hits.
-            if (!groundHits.Any(hit => hit.collider != null && hit.collider != capsule)) 
+            //We can ignore the rest if we don't have any proper hits on walkable surfaces.
+            if (!groundHits.Any(hit => hit.collider != null && hit.collider != capsule && hit.normal.y > 0.7f)) 
                 return;
             
             //Store RaycastHits.
@@ -183,8 +191,30 @@ namespace InfimaGames.LowPolyShooterPack
 
             #endregion
             
+            //Calculate vertical velocity (preserve gravity and apply jump).
+            float verticalVelocity = rigidBody.linearVelocity.y;
+            if (jumpRequested)
+            {
+                verticalVelocity = currentJumpForce;
+                jumpRequested = false;
+            }
+
             //Update Velocity.
-            Velocity = new Vector3(movement.x, 0.0f, movement.z);
+            Velocity = new Vector3(movement.x, verticalVelocity, movement.z);
+        }
+
+        private float currentJumpForce;
+
+        /// <summary>
+        /// Requests a jump if the character is grounded.
+        /// </summary>
+        public override void Jump(float? customJumpForce = null)
+        {
+            if (grounded)
+            {
+                currentJumpForce = customJumpForce ?? jumpForce;
+                jumpRequested = true;
+            }
         }
 
         /// <summary>

@@ -25,6 +25,8 @@ namespace DeadLab
 
             // リロードイベントの購読
             this.view.OnReloadRequested += OnReloadRequested;
+            // ジャンプイベントの購読
+            this.view.OnJumpRequested += OnJumpRequested;
         }
 
         private bool CanAcceptInput()
@@ -107,6 +109,24 @@ namespace DeadLab
         }
 
         /// <summary>
+        /// ジャンプ要求受信時の処理
+        /// </summary>
+        private void OnJumpRequested()
+        {
+            // 入力受付不可時はジャンプ要求無視
+            if (!CanAcceptInput()) return;
+
+            if (character != null)
+            {
+                var movement = character.GetComponent<InfimaGames.LowPolyShooterPack.MovementBehaviour>();
+                if (movement != null)
+                {
+                    movement.Jump(model.JumpForce);
+                }
+            }
+        }
+
+        /// <summary>
         /// リソース破棄およびイベント購読解除
         /// </summary>
         public void Dispose()
@@ -114,6 +134,7 @@ namespace DeadLab
             if (view != null)
             {
                 view.OnReloadRequested -= OnReloadRequested;
+                view.OnJumpRequested -= OnJumpRequested;
             }
         }
     }

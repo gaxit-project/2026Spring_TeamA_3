@@ -12,6 +12,9 @@ namespace DeadLab
         [Tooltip("前進時の常時ダッシュモード有効化フラグ")]
         public bool isSprintModeEnabled = true;
 
+        [Tooltip("ジャンプの初速度（高さ）")]
+        public float jumpForce = 5.0f;
+
         [Header("Look Settings")]
         [Tooltip("視点移動（カメラ操作）の感度倍率")]
         public float lookSensitivity = 1.0f;

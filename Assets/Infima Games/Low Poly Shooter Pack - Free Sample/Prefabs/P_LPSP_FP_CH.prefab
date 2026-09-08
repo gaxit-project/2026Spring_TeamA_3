@@ -937,7 +937,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2751027687307977091}
-  m_Material: {fileID: 13400000, guid: 59f700dae9067fd4a979d046ceb0ed04, type: 2}
+  m_Material: {fileID: 13400000, guid: 47834e846a604f24aa142040429f5bfb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1067,6 +1067,7 @@ MonoBehaviour:
   audioClipRunning: {fileID: 8300000, guid: d2add02f58e61e640aba3ae9110591cb, type: 3}
   speedWalking: 4
   speedRunning: 6.8
+  jumpForce: 5
 --- !u!114 &434113066
 MonoBehaviour:
   m_ObjectHideFlags: 0
