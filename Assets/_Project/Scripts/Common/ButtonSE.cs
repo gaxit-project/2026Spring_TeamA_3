@@ -10,13 +10,9 @@ namespace DeadLab
     {
         [SerializeField] public AudioClip seClip;
 
-        private AudioSource localAudioSource;
         private static AudioSource sharedAudioSource;
-
-        private void Awake()
-        {
-            localAudioSource = GetComponent<AudioSource>();
-        }
+        private static int lastPlayedFrame = -1;
+        private static AudioClip lastPlayedClip;
 
         private void Start()
         {
@@ -24,7 +20,23 @@ namespace DeadLab
             var button = GetComponent<Button>();
             if (button != null)
             {
-                button.onClick.AddListener(PlaySE);
+                // インスペクター側で既に登録済みかチェック
+                bool alreadyRegistered = false;
+                int persistentCount = button.onClick.GetPersistentEventCount();
+                for (int i = 0; i < persistentCount; i++)
+                {
+                    if (button.onClick.GetPersistentTarget(i) == this &&
+                        button.onClick.GetPersistentMethodName(i) == nameof(PlaySE))
+                    {
+                        alreadyRegistered = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyRegistered)
+                {
+                    button.onClick.AddListener(PlaySE);
+                }
             }
         }
 
@@ -53,21 +65,17 @@ namespace DeadLab
         {
             if (seClip == null) return;
 
-            // 自身または親が非アクティブ化された場合は、常駐の sharedAudioSource で再生
-            AudioSource targetSource = null;
-            if (localAudioSource != null && localAudioSource.isActiveAndEnabled)
+            // 同一フレーム内で同じSEが重複して呼ばれた場合は二重再生を防止
+            if (Time.frameCount == lastPlayedFrame && lastPlayedClip == seClip)
             {
-                if (localAudioSource.outputAudioMixerGroup == null && SettingsManager.SeMixerGroupInstance != null)
-                {
-                    localAudioSource.outputAudioMixerGroup = SettingsManager.SeMixerGroupInstance;
-                }
-                targetSource = localAudioSource;
-            }
-            else
-            {
-                targetSource = GetSharedAudioSource();
+                return;
             }
 
+            lastPlayedFrame = Time.frameCount;
+            lastPlayedClip = seClip;
+
+            // ボタンや親パネルが直後に非アクティブ化されても音が途切れないよう、常に常駐AudioSourceで再生
+            var targetSource = GetSharedAudioSource();
             if (targetSource != null)
             {
                 targetSource.PlayOneShot(seClip);

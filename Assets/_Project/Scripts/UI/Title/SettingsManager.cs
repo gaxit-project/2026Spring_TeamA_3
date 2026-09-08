@@ -36,27 +36,16 @@ namespace DeadLab
 
         public event Action OnBackRequested;
 
+        public AudioMixerGroup SeMixerGroup => seMixerGroup;
+
         private void Awake()
         {
-            if (seMixerGroup != null)
-            {
-                SeMixerGroupInstance = seMixerGroup;
-            }
+            InitializeSettings();
         }
 
         private void Start()
         {
-            if (seMixerGroup != null)
-            {
-                SeMixerGroupInstance = seMixerGroup;
-            }
-
-            // AudioManagerService へのSE用ミキサーグループ自動適用
-            var amService = InfimaGames.LowPolyShooterPack.ServiceLocator.Current.Get<InfimaGames.LowPolyShooterPack.IAudioManagerService>() as InfimaGames.LowPolyShooterPack.AudioManagerService;
-            if (amService != null && seMixerGroup != null)
-            {
-                amService.SetOutputMixerGroup(seMixerGroup);
-            }
+            InitializeSettings();
 
             if (backButton != null)
             {
@@ -92,6 +81,24 @@ namespace DeadLab
                 sensitivitySlider.value = savedSens;
                 sensitivitySlider.onValueChanged.AddListener(OnSensitivityChanged);
                 UpdateSensitivityText(savedSens);
+            }
+        }
+
+        /// <summary>
+        /// 設定の初期化（非アクティブ時でも外部から呼び出し可能）
+        /// </summary>
+        public void InitializeSettings()
+        {
+            if (seMixerGroup != null)
+            {
+                SeMixerGroupInstance = seMixerGroup;
+            }
+
+            // AudioManagerService へのSE用ミキサーグループ自動適用
+            var amService = InfimaGames.LowPolyShooterPack.ServiceLocator.Current.Get<InfimaGames.LowPolyShooterPack.IAudioManagerService>() as InfimaGames.LowPolyShooterPack.AudioManagerService;
+            if (amService != null && seMixerGroup != null)
+            {
+                amService.SetOutputMixerGroup(seMixerGroup);
             }
         }
 
